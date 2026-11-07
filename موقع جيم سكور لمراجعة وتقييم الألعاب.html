@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" class="dark scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جيم سكور | GameScore - بوابة مراجعة وتقييم الألعاب</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Cairo & Tajawal -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            purple: '#7c3aed',
+                            accent: '#a855f7',
+                            neon: '#06b6d4',
+                            gold: '#fbbf24',
+                            darkBg: '#0b0f19',
+                            cardBg: '#131b2e',
+                            cardBorder: '#1e293b'
+                        }
+                    },
+                    fontFamily: {
+                        cairo: ['Cairo', 'sans-serif'],
+                        tajawal: ['Tajawal', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(19, 27, 46, 0.75);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .light .glass-panel {
+            background: rgba(255, 255, 255, 0.85);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+        .neon-glow {
+            box-shadow: 0 0 25px rgba(124, 58, 237, 0.35);
+        }
+        .neon-glow-cyan {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.35);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7c3aed;
+        }
+    </style>
+</head>
+<body class="bg-[#0b0f19] text-slate-100 dark:bg-[#0b0f19] dark:text-slate-100 light:bg-slate-50 light:text-slate-800 transition-colors duration-300 antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-40 glass-panel border-b border-slate-800/80 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                
+                <!-- Logo -->
+                <a href="#home" class="flex items-center gap-3 group">
+                    <div class="w-11 h-11 bg-gradient-to-tr from-brand-purple to-brand-neon rounded-2xl flex items-center justify-center text-white text-xl font-bold shadow-lg shadow-purple-500/20 group-hover:scale-105 transition-transform">
+                        <i class="fa-solid fa-gamepad"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="text-2xl font-black tracking-wider bg-gradient-to-r from-white via-slate-200 to-brand-neon bg-clip-text text-transparent">
+                            جيم<span class="text-brand-accent">سيكور</span>
+                        </span>
+                        <span class="text-[10px] text-slate-400 font-sans tracking-widest uppercase -mt-1">GameScore Portal</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden lg:flex items-center gap-8 font-semibold text-slate-300 text-sm">
+                    <a href="#home" class="hover:text-brand-neon transition-colors py-1 border-b-2 border-transparent hover:border-brand-neon">الرئيسية</a>
+                    <a href="#reviews" class="hover:text-brand-neon transition-colors py-1 border-b-2 border-transparent hover:border-brand-neon">المراجعات</a>
+                    <a href="#top-rated" class="hover:text-brand-neon transition-colors py-1 border-b-2 border-transparent hover:border-brand-neon">قاعة المشاهير</a>
+                    <a href="#user-reviews" class="hover:text-brand-neon transition-colors py-1 border-b-2 border-transparent hover:border-brand-neon">تقييمات الجمهور</a>
+                    <a href="#newsletter" class="hover:text-brand-neon transition-colors py-1 border-b-2 border-transparent hover:border-brand-neon">النشرة الإخبارية</a>
+                </nav>
+
+                <!-- Right Tools: Search Bar & Theme Switcher -->
+                <div class="hidden sm:flex items-center gap-4">
+                    <!-- Dynamic Search Box -->
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="ابحث عن لعبة..." class="w-48 lg:w-60 bg-slate-900/90 border border-slate-700/80 rounded-xl px-4 py-2 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-brand-purple focus:ring-1 focus:ring-brand-purple transition-all pr-9">
+                        <i class="fa-solid fa-magnifying-glass absolute top-3 right-3 text-slate-400 text-xs"></i>
+                    </div>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="w-10 h-10 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/60 flex items-center justify-center text-amber-400 transition-colors" title="تبديل الوضع">
+                        <i class="fa-solid fa-sun text-lg hidden dark:block"></i>
+                        <i class="fa-solid fa-moon text-lg block dark:hidden text-indigo-400"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="flex lg:hidden items-center gap-3">
+                    <button id="theme-toggle-mobile" class="w-9 h-9 rounded-lg bg-slate-800 border border-slate-700 flex items-center justify-center text-amber-400">
+                        <i class="fa-solid fa-sun text-sm hidden dark:block"></i>
+                        <i class="fa-solid fa-moon text-sm block dark:hidden text-indigo-400"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="p-2 text-slate-300 hover:text-white focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-slate-900 border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+            <div class="mb-4">
+                <input type="text" id="search-input-mobile" placeholder="ابحث عن لعبة..." class="w-full bg-slate-800 border border-slate-700 rounded-xl px-4 py-2 text-sm text-slate-200 placeholder-slate-400 focus:outline-none focus:border-brand-purple pr-9">
+            </div>
+            <a href="#home" class="mobile-nav-link block px-3 py-2 rounded-lg text-slate-200 hover:bg-brand-purple/20 hover:text-brand-neon font-medium">الرئيسية</a>
+            <a href="#reviews" class="mobile-nav-link block px-3 py-2 rounded-lg text-slate-200 hover:bg-brand-purple/20 hover:text-brand-neon font-medium">المراجعات</a>
+            <a href="#top-rated" class="mobile-nav-link block px-3 py-2 rounded-lg text-slate-200 hover:bg-brand-purple/20 hover:text-brand-neon font-medium">قاعة المشاهير</a>
+            <a href="#user-reviews" class="mobile-nav-link block px-3 py-2 rounded-lg text-slate-200 hover:bg-brand-purple/20 hover:text-brand-neon font-medium">تقييمات الجمهور</a>
+            <a href="#newsletter" class="mobile-nav-link block px-3 py-2 rounded-lg text-slate-200 hover:bg-brand-purple/20 hover:text-brand-neon font-medium">النشرة الإخبارية</a>
+        </div>
+    </header>
+
+    <!-- Main Body Content -->
+    <main>
+        <!-- Hero Section: Featured Game of the Month -->
+        <section id="home" class="relative pt-8 pb-16 lg:py-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Main Featured Banner Container -->
+                <div class="relative rounded-3xl overflow-hidden border border-slate-700/60 shadow-2xl group min-h-[480px] lg:min-h-[540px] flex items-end">
+                    <!-- Background Image & Overlay -->
+                    <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" 
+                         style="background-image: url('https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=1400&auto=format&fit=crop');">
+                    </div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-[#0b0f19] via-[#0b0f19]/70 to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-r from-[#0b0f19]/90 via-transparent to-transparent"></div>
+
+                    <!-- Content -->
+                    <div class="relative z-10 p-6 sm:p-10 lg:p-14 w-full grid grid-cols-1 lg:grid-cols-3 gap-6 items-end">
+                        <div class="lg:col-span-2 space-y-4">
+                            <!-- Badge tag -->
+                            <div class="inline-flex items-center gap-2 bg-brand-purple/80 backdrop-blur-md text-white border border-purple-400/30 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider">
+                                <i class="fa-solid fa-fire text-amber-400"></i> لعبة الشهر الممتازة
+                            </div>
+
+                            <h1 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white leading-tight">
+                                Elden Ring: Shadow of the Erdtree
+                            </h1>
+
+                            <p class="text-slate-300 text-sm sm:text-base leading-relaxed line-clamp-3 max-w-2xl">
+                                ملحمة فريدة تعيد تعريف ألعاب الأكشن وتقمص الأدوار من عالم مفتوح ساحر يفيض بالتحديات والمخاطر. تجربة بصرية وسردية مذهلة تضعك في اختبار حقيقي لمهاراتك وتكتيكاتك القتالية.
+                            </p>
+
+                            <!-- Tags -->
+                            <div class="flex flex-wrap items-center gap-2 pt-2">
+                                <span class="bg-slate-900/80 backdrop-blur border border-slate-700 text-slate-300 text-xs px-3 py-1 rounded-lg">RPG</span>
+                                <span class="bg-slate-900/80 backdrop-blur border border-slate-700 text-slate-300 text-xs px-3 py-1 rounded-lg">Open World</span>
+                                <span class="bg-slate-900/80 backdrop-blur border border-slate-700 text-slate-300 text-xs px-3 py-1 rounded-lg">Action</span>
+                                <span class="text-slate-400 text-xs mr-2"><i class="fa-solid fa-desktop ml-1"></i> PC, PS5, Xbox Series X</span>
+                            </div>
+
+                            <div class="pt-4 flex flex-wrap items-center gap-4">
+                                <button onclick="openReviewModal(0)" class="bg-gradient-to-r from-brand-purple to-brand-accent hover:from-purple-600 hover:to-purple-700 text-white font-bold px-7 py-3.5 rounded-xl shadow-lg shadow-purple-600/30 transition-all flex items-center gap-2 transform hover:-translate-y-0.5">
+                                    <span>قراءة المراجعة الكاملة</span>
+                                    <i class="fa-solid fa-arrow-left text-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Rating Badge Corner -->
+                        <div class="lg:col-span-1 flex lg:justify-end">
+                            <div class="glass-panel p-6 rounded-2xl border border-amber-500/30 flex items-center gap-4 bg-slate-900/90 shadow-2xl">
+                                <div class="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/40 flex items-center justify-center text-amber-400 font-black text-2xl shadow-inner">
+                                    9.8
+                                </div>
+                                <div>
+                                    <div class="flex text-amber-400 text-xs gap-1 mb-1">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <h4 class="font-bold text-white text-base">تحفة فنية أسطورية</h4>
+                                    <p class="text-xs text-slate-400">تقييم المحرر المعتمد</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filters -->
+        <section class="py-6 border-y border-slate-800/60 bg-slate-950/40">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between gap-4 overflow-x-auto pb-2 sm:pb-0 scrollbar-none">
+                    <span class="text-xs font-bold text-slate-400 whitespace-nowrap hidden md:inline-block">التصفية حسب المنصة:</span>
+                    <div class="flex items-center gap-2 sm:gap-3 mx-auto md:mx-0">
+                        <button onclick="filterCategory('all')" class="cat-btn active bg-brand-purple text-white px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap">
+                            الكل
+                        </button>
+                        <button onclick="filterCategory('pc')" class="cat-btn bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-solid fa-desktop text-brand-neon"></i> PC
+                        </button>
+                        <button onclick="filterCategory('ps5')" class="cat-btn bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-brands fa-playstation text-blue-400"></i> PlayStation
+                        </button>
+                        <button onclick="filterCategory('xbox')" class="cat-btn bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-brands fa-xbox text-emerald-400"></i> Xbox
+                        </button>
+                        <button onclick="filterCategory('nintendo')" class="cat-btn bg-slate-900 border border-slate-800 hover:border-slate-700 text-slate-300 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all whitespace-nowrap flex items-center gap-2">
+                            <i class="fa-solid fa-gamepad text-red-500"></i> Nintendo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Latest Reviews Grid -->
+        <section id="reviews" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <!-- Section Header -->
+                <div class="flex items-center justify-between mb-10">
+                    <div>
+                        <div class="flex items-center gap-2 text-brand-neon text-xs font-bold uppercase tracking-wider mb-1">
+                            <span class="w-2 h-2 rounded-full bg-brand-neon animate-ping"></span> أحدث التقييمات
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">مراجعات الألعاب الحديثة</h2>
+                    </div>
+                    <span id="reviews-count-badge" class="text-xs bg-slate-800 border border-slate-700 text-slate-300 px-3 py-1.5 rounded-lg font-semibold">
+                        عرض 6 مراجعات
+                    </span>
+                </div>
+
+                <!-- Cards Grid Container -->
+                <div id="reviews-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Cards are dynamically injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Hall of Fame / Top Rated Section -->
+        <section id="top-rated" class="py-16 bg-slate-950/80 border-t border-slate-800/80 relative">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-2xl mx-auto mb-12">
+                    <span class="bg-amber-500/10 border border-amber-500/30 text-amber-400 px-3.5 py-1 rounded-full text-xs font-bold uppercase tracking-wider inline-block mb-3">
+                        <i class="fa-solid fa-trophy ml-1"></i> النخبة والأسطوريات
+                    </span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-white">قاعة المشاهير (أعلى التقييمات)</h2>
+                    <p class="text-slate-400 text-sm mt-2">قائمة بأفضل الألعاب التي حصلت على أعلى الأوسمة والتقييمات التاريخية من فريقنا.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Rank 1 -->
+                    <div class="bg-gradient-to-b from-amber-500/10 via-slate-900 to-slate-900 border border-amber-500/30 p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between group">
+                        <div class="absolute -top-3 -left-3 w-16 h-16 bg-amber-500 text-slate-950 font-black text-2xl flex items-center justify-center rounded-br-2xl shadow-lg">
+                            #1
+                        </div>
+                        <div>
+                            <img src="https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=500&auto=format&fit=crop" alt="The Witcher 3" class="w-full h-44 object-cover rounded-xl mb-4 group-hover:scale-102 transition-transform" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=The+Witcher+3'">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-amber-400 font-bold"><i class="fa-solid fa-crown ml-1"></i> التقييم الأسمى</span>
+                                <span class="text-lg font-black text-amber-400">9.9/10</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">The Witcher 3: Wild Hunt</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">قصة معقدة وعالم مفتوح مبهر لا يزال يقدم المعيار الأهم لألعاب تقمص الأدوار حتى اليوم.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                            <span>المنصات: PC, PS, Xbox</span>
+                            <span class="text-emerald-400 font-semibold">موصى بها بشدة</span>
+                        </div>
+                    </div>
+
+                    <!-- Rank 2 -->
+                    <div class="bg-gradient-to-b from-slate-700/20 via-slate-900 to-slate-900 border border-slate-700/50 p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between group">
+                        <div class="absolute -top-3 -left-3 w-16 h-16 bg-slate-300 text-slate-950 font-black text-2xl flex items-center justify-center rounded-br-2xl shadow-lg">
+                            #2
+                        </div>
+                        <div>
+                            <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?q=80&w=500&auto=format&fit=crop" alt="Red Dead Redemption 2" class="w-full h-44 object-cover rounded-xl mb-4 group-hover:scale-102 transition-transform" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=RDR2'">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-slate-300 font-bold">المركز الثاني</span>
+                                <span class="text-lg font-black text-slate-200">9.7/10</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">Red Dead Redemption 2</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">واقعية غير مسبوقة في التفاصيل وسرد قصصي عاطفي ساحر يخطف الأنفاس.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                            <span>المنصات: PC, PS, Xbox</span>
+                            <span class="text-emerald-400 font-semibold">ملحمة عالمية</span>
+                        </div>
+                    </div>
+
+                    <!-- Rank 3 -->
+                    <div class="bg-gradient-to-b from-amber-700/20 via-slate-900 to-slate-900 border border-amber-800/40 p-6 rounded-2xl relative overflow-hidden flex flex-col justify-between group">
+                        <div class="absolute -top-3 -left-3 w-16 h-16 bg-amber-700 text-white font-black text-2xl flex items-center justify-center rounded-br-2xl shadow-lg">
+                            #3
+                        </div>
+                        <div>
+                            <img src="https://images.unsplash.com/photo-1579373903781-fd5c0c30c4cd?q=80&w=500&auto=format&fit=crop" alt="God of War Ragnarok" class="w-full h-44 object-cover rounded-xl mb-4 group-hover:scale-102 transition-transform" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=God+of+War'">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="text-xs text-amber-500 font-bold">المركز الثالث</span>
+                                <span class="text-lg font-black text-amber-500">9.6/10</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2">God of War Ragnarök</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed">نظام قتال أسطوري وتصميم معارك وحوش أسلحة تضع المعيار الحقيقي لألعاب الأكشن.</p>
+                        </div>
+                        <div class="mt-6 pt-4 border-t border-slate-800 flex justify-between items-center text-xs text-slate-400">
+                            <span>المنصات: PS4, PS5, PC</span>
+                            <span class="text-emerald-400 font-semibold">معارك حماسية</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Reviews & Rating Submission Form Section -->
+        <section id="user-reviews" class="py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                    
+                    <!-- Left: Submission Form -->
+                    <div class="lg:col-span-5 bg-slate-900 border border-slate-800 p-6 sm:p-8 rounded-3xl shadow-xl">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-10 h-10 rounded-xl bg-brand-purple/20 text-brand-accent flex items-center justify-center text-lg">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-white">شارك برأيك وتقييمك</h3>
+                                <p class="text-xs text-slate-400">أضف تقييمك الخاص لأي لعبة قمت بتجربتها مؤخراً</p>
+                            </div>
+                        </div>
+
+                        <form id="user-review-form" class="space-y-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">اسم اللعبة</label>
+                                <input type="text" id="form-game-title" required placeholder="مثال: Cyberpunk 2077" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-purple">
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">اسمك أو اسم مستخدم</label>
+                                    <input type="text" id="form-user-name" required placeholder="لاعب محترف" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-purple">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-300 mb-1.5">المنصة</label>
+                                    <select id="form-platform" class="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-purple">
+                                        <option value="PC">PC</option>
+                                        <option value="PS5">PlayStation 5</option>
+                                        <option value="Xbox">Xbox Series X</option>
+                                        <option value="Switch">Nintendo Switch</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Star Rating Picker -->
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">التقييم بالنجوم</label>
+                                <div class="flex items-center gap-2 bg-slate-950 p-3 rounded-xl border border-slate-800 justify-center">
+                                    <div class="flex gap-2 text-2xl text-slate-600" id="star-picker">
+                                        <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition-colors" data-value="1"></i>
+                                        <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition-colors" data-value="2"></i>
+                                        <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition-colors" data-value="3"></i>
+                                        <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition-colors" data-value="4"></i>
+                                        <i class="fa-solid fa-star cursor-pointer hover:text-amber-400 transition-colors" data-value="5"></i>
+                                    </div>
+                                    <span id="star-count-text" class="text-xs font-bold text-amber-400 mr-3">5/5</span>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1.5">رأيك المختصر في اللعبة</label>
+                                <textarea id="form-comment" rows="3" required placeholder="اكتب ملخص تجربتك الجوانب الإيجابية والسلبية..." class="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-brand-purple"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full bg-gradient-to-r from-brand-purple to-brand-accent hover:from-purple-600 hover:to-purple-700 text-white font-bold py-3 rounded-xl shadow-lg transition-all flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-paper-plane text-sm"></i>
+                                <span>نشر التقييم</span>
+                            </button>
+                        </form>
+
+                        <div id="user-form-alert" class="hidden mt-4 p-3 rounded-xl text-center text-xs font-semibold"></div>
+                    </div>
+
+                    <!-- Right: Feed of Community Reviews -->
+                    <div class="lg:col-span-7 space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-bold text-white flex items-center gap-2">
+                                <i class="fa-solid fa-comments text-brand-neon"></i> آراء وتقييمات المجتمع
+                            </h3>
+                            <span class="text-xs text-slate-400">آخر مشاركات اللاعبين</span>
+                        </div>
+
+                        <div id="community-feed" class="space-y-4">
+                            <!-- Pre-populated User Review 1 -->
+                            <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm">
+                                            م
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm">محمد العتيبي</h4>
+                                            <span class="text-[11px] text-slate-400">عن لعبة: Resident Evil 4 Remake</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-amber-400 text-xs">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <span class="text-slate-300 font-bold mr-1 text-xs">5/5</span>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 text-xs leading-relaxed">
+                                    ريميك أسطوري بكل ما تعنيه الكلمة. إعادة إحياء أجواء الرعب والقتال بطريقة حديثة ومذهلة للغاية.
+                                </p>
+                                <div class="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-800/60">
+                                    <span>منصة: PS5</span>
+                                    <span>منذ ساعتين</span>
+                                </div>
+                            </div>
+
+                            <!-- Pre-populated User Review 2 -->
+                            <div class="bg-slate-900/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+                                <div class="flex items-start justify-between">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 flex items-center justify-center text-white font-bold text-sm">
+                                            س
+                                        </div>
+                                        <div>
+                                            <h4 class="font-bold text-white text-sm">سارة الشمري</h4>
+                                            <span class="text-[11px] text-slate-400">عن لعبة: Zelda: Tears of the Kingdom</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-1 text-amber-400 text-xs">
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star"></i>
+                                        <i class="fa-solid fa-star-half-stroke"></i>
+                                        <span class="text-slate-300 font-bold mr-1 text-xs">4.5/5</span>
+                                    </div>
+                                </div>
+                                <p class="text-slate-300 text-xs leading-relaxed">
+                                    حرية البناء والاستكشاف لم أجد لها مثيلاً في أي لعبة أخرى. الإبداع الهندسي في اللعبة يتجاوز الحدود.
+                                </p>
+                                <div class="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-800/60">
+                                    <span>منصة: Nintendo Switch</span>
+                                    <span>منذ يوم واحد</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section id="newsletter" class="py-16 bg-gradient-to-b from-slate-950 to-[#0b0f19] border-t border-slate-800/80">
+            <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <div class="bg-gradient-to-r from-brand-purple/20 via-slate-900 to-brand-neon/20 border border-slate-700/60 p-8 sm:p-12 rounded-3xl relative overflow-hidden">
+                    <div class="max-w-2xl mx-auto space-y-4">
+                        <div class="w-12 h-12 bg-brand-purple/30 text-brand-accent rounded-2xl flex items-center justify-center mx-auto text-xl">
+                            <i class="fa-solid fa-envelope-open-text"></i>
+                        </div>
+                        <h2 class="text-2xl sm:text-4xl font-extrabold text-white">لا تفوّت المراجعات والخصومات!</h2>
+                        <p class="text-slate-300 text-sm">اشترك في نشرتنا الإسبوعية ليصلك ملخص أحدث تقييمات الألعاب، وأخبار إطلاق العناوين الضخمة فور نشرها.</p>
+
+                        <form id="newsletter-form" class="flex flex-col sm:flex-row gap-3 pt-4 max-w-md mx-auto">
+                            <input type="email" required placeholder="أدخل بريدك الإلكتروني..." class="bg-slate-950 border border-slate-700 text-slate-200 px-4 py-3 rounded-xl text-sm focus:outline-none focus:border-brand-neon flex-1">
+                            <button type="submit" class="bg-brand-neon hover:bg-cyan-500 text-slate-950 font-bold px-6 py-3 rounded-xl shadow-lg transition-all whitespace-nowrap">
+                                اشترك الآن
+                            </button>
+                        </form>
+                        <p id="newsletter-msg" class="text-xs text-emerald-400 hidden pt-2 font-semibold"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 text-xs py-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center gap-2">
+                        <div class="w-8 h-8 bg-brand-purple rounded-lg flex items-center justify-center text-white text-sm">
+                            <i class="fa-solid fa-gamepad"></i>
+                        </div>
+                        <span class="text-lg font-bold text-white">جيم سكور</span>
+                    </div>
+                    <p class="text-slate-400 text-xs leading-relaxed">
+                        منصتك العربية الأولى والموثوقة لمراجعات وتقييمات الألعاب المحايدة والشاملة.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">روابط سريعة</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="hover:text-brand-neon transition-colors">الرئيسية</a></li>
+                        <li><a href="#reviews" class="hover:text-brand-neon transition-colors">أحدث المراجعات</a></li>
+                        <li><a href="#top-rated" class="hover:text-brand-neon transition-colors">أفضل الألعاب</a></li>
+                        <li><a href="#user-reviews" class="hover:text-brand-neon transition-colors">تقييمات الأعضاء</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">المنصات</h4>
+                    <ul class="space-y-2">
+                        <li><a href="javascript:filterCategory('pc')" class="hover:text-brand-neon transition-colors">ألعاب الحاسب الشخصي PC</a></li>
+                        <li><a href="javascript:filterCategory('ps5')" class="hover:text-brand-neon transition-colors">بلايستيشن PlayStation 5</a></li>
+                        <li><a href="javascript:filterCategory('xbox')" class="hover:text-brand-neon transition-colors">إكس بوكس Xbox Series X</a></li>
+                        <li><a href="javascript:filterCategory('nintendo')" class="hover:text-brand-neon transition-colors">نينتندو Nintendo Switch</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white font-bold mb-3 text-sm">تابعنا على شبكات التواصل</h4>
+                    <div class="flex gap-3 text-base">
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-brand-neon hover:border-brand-neon transition-all"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-brand-neon hover:border-brand-neon transition-all"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-brand-neon hover:border-brand-neon transition-all"><i class="fa-brands fa-discord"></i></a>
+                        <a href="#" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-slate-300 hover:text-brand-neon hover:border-brand-neon transition-all"><i class="fa-brands fa-twitch"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-8 border-t border-slate-800/60 flex flex-col sm:flex-row justify-between items-center gap-4 text-slate-500 text-[11px]">
+                <p>جميع الحقوق محفوظة © <span id="year"></span> جيم سكور (GameScore Portal).</p>
+                <div class="flex gap-4">
+                    <a href="#" class="hover:underline">سياسة الخصوصية</a>
+                    <a href="#" class="hover:underline">شروط الاستخدام</a>
+                    <a href="#" class="hover:underline">فريق التحرير</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Full Review Modal Dialog -->
+    <div id="review-modal" class="fixed inset-0 z-50 hidden bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-slate-900 border border-slate-700/70 rounded-3xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl relative">
+            
+            <!-- Modal Close Button -->
+            <button onclick="closeReviewModal()" class="absolute top-4 left-4 z-10 w-10 h-10 bg-slate-950/70 hover:bg-slate-950 text-slate-300 hover:text-white rounded-full flex items-center justify-center border border-slate-700 transition-colors">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <!-- Modal Banner Cover -->
+            <div class="relative h-64 sm:h-80 w-full overflow-hidden">
+                <img id="modal-image" src="" alt="Game Banner" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/40 to-transparent"></div>
+                <div class="absolute bottom-6 right-6 left-6 flex flex-wrap items-end justify-between gap-4">
+                    <div>
+                        <span id="modal-tags" class="text-xs bg-brand-purple text-white px-3 py-1 rounded-lg font-bold mb-2 inline-block"></span>
+                        <h2 id="modal-title" class="text-2xl sm:text-4xl font-black text-white"></h2>
+                        <p id="modal-date" class="text-xs text-slate-400 mt-1"></p>
+                    </div>
+                    <div class="bg-slate-950/90 border border-amber-500/40 px-4 py-2 rounded-2xl flex items-center gap-3">
+                        <span id="modal-score" class="text-3xl font-black text-amber-400"></span>
+                        <div class="text-xs text-slate-300 font-bold">التقييم النهـائي</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal Detailed Breakdown Content -->
+            <div class="p-6 sm:p-8 space-y-6 text-slate-300">
+                
+                <!-- Overview -->
+                <div>
+                    <h4 class="text-white font-bold text-lg mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-info text-brand-neon"></i> نظرة عامة
+                    </h4>
+                    <p id="modal-description" class="text-sm leading-relaxed text-slate-300"></p>
+                </div>
+
+                <!-- Rating Criteria Breakdown Bars -->
+                <div class="bg-slate-950/60 border border-slate-800 p-5 rounded-2xl space-y-3">
+                    <h4 class="text-white font-bold text-sm mb-3">تفاصيل التقييم الرقمي:</h4>
+                    
+                    <!-- Graphics -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 font-semibold">الرسوميات والجانب البصري</span>
+                            <span id="score-graphics" class="text-brand-neon font-bold">9.5/10</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div id="bar-graphics" class="h-full bg-brand-neon rounded-full" style="width: 95%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Gameplay -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 font-semibold">أسلوب اللعب والميكانيكيات</span>
+                            <span id="score-gameplay" class="text-brand-purple font-bold">9.0/10</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div id="bar-gameplay" class="h-full bg-brand-purple rounded-full" style="width: 90%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Story -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 font-semibold">القصة والسرد الروائي</span>
+                            <span id="score-story" class="text-amber-400 font-bold">8.8/10</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div id="bar-story" class="h-full bg-amber-400 rounded-full" style="width: 88%;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Sound -->
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-300 font-semibold">الموسيقى والأداء الصوتي</span>
+                            <span id="score-sound" class="text-emerald-400 font-bold">9.2/10</span>
+                        </div>
+                        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden">
+                            <div id="bar-sound" class="h-full bg-emerald-400 rounded-full" style="width: 92%;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pros & Cons Grid -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Pros -->
+                    <div class="bg-emerald-950/30 border border-emerald-800/40 p-4 rounded-2xl">
+                        <h5 class="text-emerald-400 font-bold text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-thumbs-up"></i> الإيجابيات
+                        </h5>
+                        <ul id="modal-pros" class="space-y-1.5 text-xs text-slate-300"></ul>
+                    </div>
+
+                    <!-- Cons -->
+                    <div class="bg-rose-950/30 border border-rose-800/40 p-4 rounded-2xl">
+                        <h5 class="text-rose-400 font-bold text-sm mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-thumbs-down"></i> السلبيات
+                        </h5>
+                        <ul id="modal-cons" class="space-y-1.5 text-xs text-slate-300"></ul>
+                    </div>
+                </div>
+
+                <!-- Footer button modal -->
+                <div class="pt-4 border-t border-slate-800 flex justify-end">
+                    <button onclick="closeReviewModal()" class="bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold px-6 py-2.5 rounded-xl transition-colors">
+                        إغلاق المراجعة
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application JavaScript Engine -->
+    <script>
+        // Set dynamic current copyright year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Sample Games Database
+        const gamesData = [
+            {
+                id: 0,
+                title: "Elden Ring: Shadow of the Erdtree",
+                category: "pc",
+                platformTag: "PC, PS5, Xbox",
+                score: "9.8",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=800&auto=format&fit=crop",
+                date: "25 يونيو 2024",
+                summary: "توسعة أسطورية تضيف مناطق واسعة جديدة وتحديات حابسة للأنفاس تعيد الابتكار في عالم شاسع.",
+                description: "تقدم إضافة Shadow of the Erdtree تجربة ساحرة ومثالية لعشاق التحدي واستكشاف الأسرار. تتميز بتصميم بيئي عمودي مذهل ومعارك أعداء مصممة بعناية فائقة تضع قدرات اللاعبين في اختبار دقيق.",
+                graphics: 9.6,
+                gameplay: 9.9,
+                story: 9.5,
+                sound: 9.8,
+                pros: ["عالم شاسع مليء بالأسرار والدهشة", "معارك زعماء ملحمية جداً", "تنوع هائل في الأسلحة والتعاويذ"],
+                cons: ["صعوبة مرتفعة قد لا تناسب جميع اللاعبين"]
+            },
+            {
+                id: 1,
+                title: "Black Myth: Wukong",
+                category: "pc",
+                platformTag: "PC, PS5",
+                score: "9.2",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1538481199705-c710c4e965fc?q=80&w=800&auto=format&fit=crop",
+                date: "20 أغسطس 2024",
+                summary: "رحلة بصرية مذهلة في أعماق الأساطير الصينية مع نظام قتال سريع وحماسي.",
+                description: "تعتبر اللعبة تحفة بصرية بفضل محرك Unreal Engine 5. تقدم قتالاً مليئاً بالتحولات والتكتيكات، وتجربة قتال وحوش متلاحقة ومثيرة طوال ساعات اللعب.",
+                graphics: 9.8,
+                gameplay: 9.2,
+                story: 8.5,
+                sound: 9.0,
+                pros: ["رسومات بصرية مبهرة للغاية", "تنوع رائع في قدرات التحول والقتال", "تصميم أعداء مستوحى بدقة من الأسطورة"],
+                cons: ["بعض الجدران الخفية في الخرائط"]
+            },
+            {
+                id: 2,
+                title: "Marvel's Spider-Man 2",
+                category: "ps5",
+                platformTag: "PlayStation 5",
+                score: "9.4",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?q=80&w=800&auto=format&fit=crop",
+                date: "20 أكتوبر 2023",
+                summary: "تأرجح في سماء نيويورك بسرعة فائقة مع قصة ملحمية تجمع بيتر باركر ومايلز موراليس.",
+                description: "استغلال مثالي لإمكانيات ذراع تحكم DualSense وسرعة وحدة التخزين SSD. تنقل سلس، وقتال استعراضي ممتع وقصة مشوقة جداً ضد فينوم وبروفيسور كرافن.",
+                graphics: 9.5,
+                gameplay: 9.6,
+                story: 9.1,
+                sound: 9.3,
+                pros: ["سرعة تنقل وتأرجح مذهلة", "قصة ممتازة ومثيرة للاهتمام", "استغلال ممتاز لتقنيات PS5"],
+                cons: ["المهام الجانبية تتكرر أحياناً"]
+            },
+            {
+                id: 3,
+                title: "Forza Horizon 5",
+                category: "xbox",
+                platformTag: "Xbox Series X, PC",
+                score: "9.5",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=800&auto=format&fit=crop",
+                date: "9 نوفمبر 2021",
+                summary: "تجربة سباقات سباقات العالم المفتوح الأفضل والأجمل في المكسيك الساحرة.",
+                description: "تنوع طبيعي مذهل بين الصحارى والغابات والبراكين، وتشكيلة ضخمة من مئات السيارات المتنوعة مع قيادة ممتعة تناسب المحترفين والمبتدئين.",
+                graphics: 9.9,
+                gameplay: 9.5,
+                story: 8.0,
+                sound: 9.8,
+                pros: ["رسومات وتأثيرات طقس خارقة", "عالم مفتوح متنوع وجميل", "محتوى ضخم جداً للسباقات"],
+                cons: ["تطور السرد في طور القصة بسيط"]
+            },
+            {
+                id: 4,
+                title: "Super Mario Bros. Wonder",
+                category: "nintendo",
+                platformTag: "Nintendo Switch",
+                score: "9.3",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=800&auto=format&fit=crop",
+                date: "20 أكتوبر 2023",
+                summary: "إعادة ابتكار ممتعة ومبتكرة لألعاب ماريو ثنائية الأبعاد بزهرة العجائب.",
+                description: "كل مرحلة تقدم أفكاراً جديدة ومفاجآت غير متوقعة تغير طبيعة اللعب، مما يجعل التجربة ممتعة للغاية ومناسبة لجميع الأعمار.",
+                graphics: 9.0,
+                gameplay: 9.8,
+                story: 8.0,
+                sound: 9.5,
+                pros: ["ابتكار وأفكار لا تتوقف في المراحل", "رسوم متحركة جذابة جداً", "لعب جماعي ممتع"],
+                cons: ["معارك الزعماء سهلة نسبياً"]
+            },
+            {
+                id: 5,
+                title: "Final Fantasy VII Rebirth",
+                category: "ps5",
+                platformTag: "PlayStation 5",
+                score: "9.6",
+                stars: 5,
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+                date: "29 فبراير 2024",
+                summary: "مغامرة شاسعة ومؤثرة تعيد رسم ذكريات اللعبة الكلاسيكية بأعلى معايير الجودة.",
+                description: "عالم ضخم مليء بالألعاب المصغرة والمحتوى الجانبي المتنوع، ونظام قتال يدمج ببراعة بين الأكشن الحركي والاستراتيجية التكتيكية.",
+                graphics: 9.2,
+                gameplay: 9.7,
+                story: 9.6,
+                sound: 9.9,
+                pros: ["موسيقى تصويرية عبقرية", "نظام قتال تكتيكي وممتع جداً", "عالم واسع مليء بالأنشطة"],
+                cons: ["بعض الألعاب المصغرة قد تكون مكررة"]
+            }
+        ];
+
+        // Render Reviews Grid
+        function renderReviews(items) {
+            const grid = document.getElementById('reviews-grid');
+            const countBadge = document.getElementById('reviews-count-badge');
+            grid.innerHTML = '';
+
+            countBadge.textContent = `عرض ${items.length} مراجعات`;
+
+            if (items.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-12 text-center text-slate-400">
+                        <i class="fa-solid fa-ghost text-4xl mb-3 text-slate-600 block"></i>
+                        <p class="text-base">لم يتم العثور على مراجعات تطابق البحث أو المنصة المختارة.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            items.forEach(game => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden hover:border-brand-purple/60 transition-all duration-300 shadow-xl flex flex-col justify-between group";
+                
+                card.innerHTML = `
+                    <div>
+                        <!-- Cover Image -->
+                        <div class="relative h-52 overflow-hidden">
+                            <img src="${game.image}" alt="${game.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(game.title)}'">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                            
+                            <!-- Platform Badge -->
+                            <span class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur text-slate-200 border border-slate-700/80 text-[11px] font-bold px-3 py-1 rounded-xl">
+                                ${game.platformTag}
+                            </span>
+
+                            <!-- Score Badge -->
+                            <div class="absolute bottom-3 left-3 bg-brand-purple/90 backdrop-blur text-white font-black text-sm px-3 py-1.5 rounded-xl border border-purple-400/30 flex items-center gap-1">
+                                <i class="fa-solid fa-star text-amber-400 text-xs"></i>
+                                <span>${game.score}</span>
+                            </div>
+                        </div>
+
+                        <!-- Info Content -->
+                        <div class="p-6">
+                            <div class="text-[11px] text-slate-400 mb-2 flex items-center gap-2">
+                                <i class="fa-regular fa-calendar"></i>
+                                <span>${game.date}</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-2 line-clamp-1 group-hover:text-brand-neon transition-colors">${game.title}</h3>
+                            <p class="text-slate-400 text-xs leading-relaxed line-clamp-2 mb-4">${game.summary}</p>
+                        </div>
+                    </div>
+
+                    <!-- Footer / Modal trigger -->
+                    <div class="px-6 pb-6 pt-0">
+                        <button onclick="openReviewModal(${game.id})" class="w-full bg-slate-800 hover:bg-brand-purple text-slate-200 hover:text-white text-xs font-bold py-3 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>اقرأ المراجعة التفصيلية</span>
+                            <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Category Filtering Logic
+        function filterCategory(category) {
+            const btns = document.querySelectorAll('.cat-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('bg-brand-purple', 'text-white');
+                btn.classList.add('bg-slate-900', 'text-slate-300');
+            });
+
+            // Highlight target button
+            event?.currentTarget?.classList?.remove('bg-slate-900', 'text-slate-300');
+            event?.currentTarget?.classList?.add('bg-brand-purple', 'text-white');
+
+            if (category === 'all') {
+                renderReviews(gamesData);
+            } else {
+                const filtered = gamesData.filter(g => g.category === category);
+                renderReviews(filtered);
+            }
+        }
+
+        // Search Input Filter Logic
+        function setupSearch() {
+            const searchInput = document.getElementById('search-input');
+            const searchMobile = document.getElementById('search-input-mobile');
+
+            const handleSearch = (e) => {
+                const query = e.target.value.toLowerCase().trim();
+                const filtered = gamesData.filter(g => 
+                    g.title.toLowerCase().includes(query) || 
+                    g.summary.toLowerCase().includes(query) ||
+                    g.platformTag.toLowerCase().includes(query)
+                );
+                renderReviews(filtered);
+            };
+
+            searchInput.addEventListener('input', handleSearch);
+            searchMobile.addEventListener('input', handleSearch);
+        }
+
+        // Modal Handlers
+        function openReviewModal(gameId) {
+            const game = gamesData.find(g => g.id === gameId);
+            if (!game) return;
+
+            document.getElementById('modal-image').src = game.image;
+            document.getElementById('modal-title').textContent = game.title;
+            document.getElementById('modal-tags').textContent = game.platformTag;
+            document.getElementById('modal-date').textContent = `تاريخ المراجعة: ${game.date}`;
+            document.getElementById('modal-score').textContent = `${game.score}/10`;
+            document.getElementById('modal-description').textContent = game.description;
+
+            // Rating breakdown
+            document.getElementById('score-graphics').textContent = `${game.graphics}/10`;
+            document.getElementById('bar-graphics').style.width = `${game.graphics * 10}%`;
+
+            document.getElementById('score-gameplay').textContent = `${game.gameplay}/10`;
+            document.getElementById('bar-gameplay').style.width = `${game.gameplay * 10}%`;
+
+            document.getElementById('score-story').textContent = `${game.story}/10`;
+            document.getElementById('bar-story').style.width = `${game.story * 10}%`;
+
+            document.getElementById('score-sound').textContent = `${game.sound}/10`;
+            document.getElementById('bar-sound').style.width = `${game.sound * 10}%`;
+
+            // Pros & Cons
+            const prosContainer = document.getElementById('modal-pros');
+            const consContainer = document.getElementById('modal-cons');
+            prosContainer.innerHTML = '';
+            consContainer.innerHTML = '';
+
+            game.pros.forEach(p => {
+                prosContainer.innerHTML += `<li class="flex items-center gap-1.5"><i class="fa-solid fa-check text-emerald-400 text-[10px]"></i> ${p}</li>`;
+            });
+
+            game.cons.forEach(c => {
+                consContainer.innerHTML += `<li class="flex items-center gap-1.5"><i class="fa-solid fa-xmark text-rose-400 text-[10px]"></i> ${c}</li>`;
+            });
+
+            const modal = document.getElementById('review-modal');
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeReviewModal() {
+            const modal = document.getElementById('review-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Star Picker Interactive Script
+        let selectedStars = 5;
+        function setupStarPicker() {
+            const stars = document.querySelectorAll('#star-picker i');
+            const text = document.getElementById('star-count-text');
+
+            stars.forEach((star) => {
+                star.addEventListener('click', () => {
+                    selectedStars = parseInt(star.getAttribute('data-value'));
+                    text.textContent = `${selectedStars}/5`;
+                    
+                    stars.forEach((s, idx) => {
+                        if (idx < selectedStars) {
+                            s.classList.add('text-amber-400');
+                            s.classList.remove('text-slate-600');
+                        } else {
+                            s.classList.remove('text-amber-400');
+                            s.classList.add('text-slate-600');
+                        }
+                    });
+                });
+            });
+        }
+
+        // Form Submit for User Review
+        function setupUserForm() {
+            const form = document.getElementById('user-review-form');
+            const alertBox = document.getElementById('user-form-alert');
+            const feed = document.getElementById('community-feed');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const gameTitle = document.getElementById('form-game-title').value;
+                const userName = document.getElementById('form-user-name').value;
+                const platform = document.getElementById('form-platform').value;
+                const comment = document.getElementById('form-comment').value;
+
+                // Prepend new review card to feed
+                const newCard = document.createElement('div');
+                newCard.className = "bg-slate-900/90 border border-brand-purple/50 p-5 rounded-2xl space-y-3 animate-fade-in";
+                newCard.innerHTML = `
+                    <div class="flex items-start justify-between">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-brand-purple to-brand-neon flex items-center justify-center text-white font-bold text-sm">
+                                ${userName.charAt(0)}
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">${userName}</h4>
+                                <span class="text-[11px] text-slate-400">عن لعبة: ${gameTitle}</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-1 text-amber-400 text-xs">
+                            <i class="fa-solid fa-star"></i>
+                            <span class="text-slate-300 font-bold mr-1 text-xs">${selectedStars}/5</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-300 text-xs leading-relaxed">${comment}</p>
+                    <div class="flex items-center justify-between text-[11px] text-slate-500 pt-2 border-t border-slate-800/60">
+                        <span>منصة: ${platform}</span>
+                        <span>الآن</span>
+                    </div>
+                `;
+
+                feed.prepend(newCard);
+
+                // Show success alert
+                alertBox.className = "mt-4 p-3 rounded-xl text-center text-xs font-semibold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30";
+                alertBox.textContent = "تم نشر تقييمك بنجاح! شكرًا لمشاركتك معنا.";
+                alertBox.classList.remove('hidden');
+
+                form.reset();
+                setTimeout(() => alertBox.classList.add('hidden'), 4000);
+            });
+        }
+
+        // Newsletter Submit
+        function setupNewsletter() {
+            const form = document.getElementById('newsletter-form');
+            const msg = document.getElementById('newsletter-msg');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                msg.textContent = "تم اشتراكك في النشرة الإخبارية بنجاح!";
+                msg.classList.remove('hidden');
+                form.reset();
+                setTimeout(() => msg.classList.add('hidden'), 4000);
+            });
+        }
+
+        // Theme Toggle (Light / Dark)
+        function setupThemeToggle() {
+            const btn = document.getElementById('theme-toggle');
+            const btnMobile = document.getElementById('theme-toggle-mobile');
+
+            const toggle = () => {
+                const html = document.documentElement;
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    html.classList.add('light');
+                } else {
+                    html.classList.remove('light');
+                    html.classList.add('dark');
+                }
+            };
+
+            btn?.addEventListener('click', toggle);
+            btnMobile?.addEventListener('click', toggle);
+        }
+
+        // Mobile Menu Drawer Toggle
+        function setupMobileMenu() {
+            const btn = document.getElementById('mobile-menu-btn');
+            const menu = document.getElementById('mobile-menu');
+            const links = document.querySelectorAll('.mobile-nav-link');
+
+            btn.addEventListener('click', () => {
+                menu.classList.toggle('hidden');
+            });
+
+            links.forEach(l => l.addEventListener('click', () => menu.classList.add('hidden')));
+        }
+
+        // Init on page load
+        window.onload = function() {
+            renderReviews(gamesData);
+            setupSearch();
+            setupStarPicker();
+            setupUserForm();
+            setupNewsletter();
+            setupThemeToggle();
+            setupMobileMenu();
+        };
+    </script>
+</body>
+</html>
